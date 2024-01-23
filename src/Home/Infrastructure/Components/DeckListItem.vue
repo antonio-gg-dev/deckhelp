@@ -1,22 +1,20 @@
 <template>
-  <DeckListItem
-    v-for="(deck, index) in decks"
-    :key="index"
-    :deck="deck"
-  />
+  <RouterLink
+    :to="`/decks/${deck.index}`"
+  >
+    {{ deck }}
+  </RouterLink>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { DeckResponse } from '@/Home/Application/DTOs/ListDecksResponse'
-import DeckListItem from '@/Home/Infrastructure/Components/DeckListItem.vue'
 
 export default defineComponent({
-  components: { DeckListItem },
   props: {
-    decks: {
+    deck: {
       required: true,
-      type: Array as PropType<DeckResponse[]>
+      type: Object as PropType<DeckResponse>
     }
   }
 })

@@ -22,11 +22,11 @@ export default defineComponent({
   methods: {
     createDeck(deckName: string) {
       this.createNewDeck?.create(deckName)
-      this.decks = this.listDecks?.list()
+      this.decks = this.listDecks?.list().decks
     }
   },
   created() {
-    this.decks = this.listDecks?.list()
+    this.decks = this.listDecks?.list().decks
   }
 })
 </script>

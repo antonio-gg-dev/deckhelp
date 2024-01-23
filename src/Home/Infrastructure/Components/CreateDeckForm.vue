@@ -1,6 +1,13 @@
 <template>
-  <form @submit.prevent="submit" ref="form">
-    <input type="text" placeholder="Deck name..." v-model="deckName" />
+  <form
+    @submit.prevent="submit"
+    ref="form"
+  >
+    <input
+      type="text"
+      placeholder="Deck name..."
+      v-model="deckName"
+    />
 
     <button type="submit">Create</button>
   </form>
@@ -24,5 +31,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped></style>
