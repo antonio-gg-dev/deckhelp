@@ -1,7 +1,7 @@
-import type { CreateDeckRepository } from '@/Home/Domain/Repositories/CreateDeckRepository'
-import { Deck } from '@/Home/Domain/Entities/Deck'
-import type { StorageDeck } from '@/Home/Infrastructure/DTOs/StorageDeck'
-import { StorageDeckType } from '@/Home/Infrastructure/DTOs/StorageDeck'
+import type { CreateDeckRepository } from '@/DeckBuilder/Domain/Repositories/CreateDeckRepository'
+import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
+import type { StorageDeck } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
+import { StorageDeckType } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
 
 export class StorageCreateDeckRepository implements CreateDeckRepository {
   public constructor(private storage: Storage) {}

@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { DeckResponse } from '@/Home/Application/DTOs/ListDecksResponse'
+import type { DeckResponse } from '@/DeckBuilder/Application/DTOs/ListDecksResponse'
 
 export default defineComponent({
   props: {

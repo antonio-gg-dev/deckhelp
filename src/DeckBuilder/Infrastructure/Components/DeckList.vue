@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { DeckResponse } from '@/Home/Application/DTOs/ListDecksResponse'
-import DeckListItem from '@/Home/Infrastructure/Components/DeckListItem.vue'
+import type { DeckResponse } from '@/DeckBuilder/Application/DTOs/ListDecksResponse'
+import DeckListItem from '@/DeckBuilder/Infrastructure/Components/DeckListItem.vue'
 
 export default defineComponent({
   components: { DeckListItem },

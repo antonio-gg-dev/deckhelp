@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import CreateDeckForm from '@/Home/Infrastructure/Components/CreateDeckForm.vue'
-import DeckList from '@/Home/Infrastructure/Components/DeckList.vue'
+import CreateDeckForm from '@/DeckBuilder/Infrastructure/Components/CreateDeckForm.vue'
+import DeckList from '@/DeckBuilder/Infrastructure/Components/DeckList.vue'
 
 export default defineComponent({
   components: { DeckList, CreateDeckForm },

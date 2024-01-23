@@ -1,5 +1,5 @@
-import type { CreateDeckRepository } from '@/Home/Domain/Repositories/CreateDeckRepository'
-import { Deck } from '@/Home/Domain/Entities/Deck'
+import type { CreateDeckRepository } from '@/DeckBuilder/Domain/Repositories/CreateDeckRepository'
+import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
 
 export class CreateNewDeck {
   public constructor(public repository: CreateDeckRepository) {}
