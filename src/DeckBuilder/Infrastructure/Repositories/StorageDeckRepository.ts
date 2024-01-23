@@ -1,9 +1,9 @@
-import type { CreateDeckRepository } from '@/DeckBuilder/Domain/Repositories/CreateDeckRepository'
+import type { DeckRepository } from '@/DeckBuilder/Domain/Repositories/DeckRepository'
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
 import type { StorageDeck } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
 import { StorageDeckType } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
 
-export class StorageCreateDeckRepository implements CreateDeckRepository {
+export class StorageDeckRepository implements DeckRepository {
   public constructor(private storage: Storage) {}
 
   public create(newDeck: Deck) {
@@ -48,6 +48,16 @@ export class StorageCreateDeckRepository implements CreateDeckRepository {
     const decks = this.getStoredDecks()
 
     return decks.map(this.storedToDomain)
+  }
+
+  public getByIndex(index: number): Deck | null {
+    const deck = this.getStoredDecks()[index]
+
+    if (deck === undefined) {
+      return null
+    }
+
+    return this.storedToDomain(deck)
   }
 
   private getStoredDecks(): StorageDeck[] {

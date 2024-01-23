@@ -1,8 +1,8 @@
-import type { CreateDeckRepository } from '@/DeckBuilder/Domain/Repositories/CreateDeckRepository'
+import type { DeckRepository } from '@/DeckBuilder/Domain/Repositories/DeckRepository'
 import type { ListDecksResponse } from '@/DeckBuilder/Application/DTOs/ListDecksResponse'
 
 export class ListDecks {
-  public constructor(public repository: CreateDeckRepository) {}
+  public constructor(public repository: DeckRepository) {}
 
   public list(): ListDecksResponse {
     return {
