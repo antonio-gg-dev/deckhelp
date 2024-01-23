@@ -1,5 +1,7 @@
 <template>
-  <RouterView />
+  <main>
+    Hola
+  </main>
 </template>
 
 <script lang="ts">
