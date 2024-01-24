@@ -25,8 +25,11 @@ export default defineComponent({
   },
   methods: {
     submit() {
+      const form = this.$refs.form as HTMLFormElement
+
       this.$emit('new-deck', this.deckName)
-      this.$refs.form.reset()
+
+      form.reset()
     }
   }
 })
