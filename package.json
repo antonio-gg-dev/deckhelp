@@ -7,11 +7,16 @@
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test": "vitest",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "sa": "vue-tsc --build --force",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
+    "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "all:fix": "npm run lint:fix && npm run format:fix",
+    "pre-commit": "npm run sa && npm run lint && npm run format && npm run test run && npm run build-only",
+    "pre-commit:install": "echo 'npm run pre-commit' > .git/hooks/pre-commit && chmod u+x .git/hooks/pre-commit"
   },
   "dependencies": {
     "vue": "^3.3.11",
