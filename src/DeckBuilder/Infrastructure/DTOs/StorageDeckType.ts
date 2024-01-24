@@ -1,4 +1,4 @@
-export enum DeckType {
+export enum StorageDeckType {
   commander = 'Commander',
   brawl = 'Brawl'
 }

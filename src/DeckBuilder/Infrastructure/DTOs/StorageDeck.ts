@@ -1,15 +1,8 @@
+import { StorageDeckType } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeckType'
+import type { StorageCardGroup } from '@/DeckBuilder/Infrastructure/DTOs/StorageCardGroup'
+
 export interface StorageDeck {
   name: string
-  type: StorageDeckType.commander
+  type: StorageDeckType
   cardGroups: StorageCardGroup[]
-}
-
-export enum StorageDeckType {
-  commander = 'Commander'
-}
-
-export interface StorageCardGroup {
-  name: string
-  amount: number
-  cards: []
 }

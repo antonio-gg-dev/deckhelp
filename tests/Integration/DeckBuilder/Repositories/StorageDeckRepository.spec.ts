@@ -36,7 +36,8 @@ describe('StorageDeckRepository', () => {
       storage.getItem = vi.fn().mockReturnValueOnce(
         JSON.stringify([
           {
-            name: 'Expected Deck'
+            name: 'Expected Deck',
+            type: 'Brawl'
           }
         ])
       )
@@ -44,17 +45,19 @@ describe('StorageDeckRepository', () => {
       const deck = repository.getByIndex(0)
 
       expect(storage.getItem).toHaveBeenCalledWith('decks')
-      expect(deck).toEqual(new Deck('Expected Deck', DeckType.commander, []))
+      expect(deck).toEqual(new Deck('Expected Deck', DeckType.brawl, []))
     })
 
     it('should return deck with index "1"', () => {
       storage.getItem = vi.fn().mockReturnValueOnce(
         JSON.stringify([
           {
-            name: 'Unexpected Deck'
+            name: 'Unexpected Deck',
+            type: 'Brawl'
           },
           {
-            name: 'Expected Deck'
+            name: 'Expected Deck',
+            type: 'Commander'
           }
         ])
       )
@@ -66,7 +69,13 @@ describe('StorageDeckRepository', () => {
     })
 
     it('should autocomplete missing data from the deck', () => {
-      storage.getItem = vi.fn().mockReturnValueOnce(JSON.stringify([{}]))
+      storage.getItem = vi.fn().mockReturnValueOnce(
+        JSON.stringify([
+          {
+            test: 'Incomplete Deck Data'
+          }
+        ])
+      )
 
       const deck = repository.getByIndex(0)
 
