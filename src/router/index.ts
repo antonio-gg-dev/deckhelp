@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/decks/:index',
       component: DeckPage,
-      props: true,
+      props: true
     }
   ]
 })

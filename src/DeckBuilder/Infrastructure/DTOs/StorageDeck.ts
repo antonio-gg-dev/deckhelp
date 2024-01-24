@@ -1,14 +1,14 @@
 export interface StorageDeck {
   name: string
   type: StorageDeckType.commander
-  components: StorageComponent[]
+  cardGroups: StorageCardGroup[]
 }
 
 export enum StorageDeckType {
   commander = 'Commander'
 }
 
-export interface StorageComponent {
+export interface StorageCardGroup {
   name: string
   amount: number
   cards: []

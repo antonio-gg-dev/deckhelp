@@ -2,6 +2,7 @@ import type { DeckRepository } from '@/DeckBuilder/Domain/Repositories/DeckRepos
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
 import type { StorageDeck } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
 import { StorageDeckType } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
+import { DeckType } from '@/DeckBuilder/Domain/Entities/DeckType'
 
 export class StorageDeckRepository implements DeckRepository {
   public constructor(private storage: Storage) {}
@@ -12,7 +13,7 @@ export class StorageDeckRepository implements DeckRepository {
     decks.push({
       name: newDeck.name,
       type: StorageDeckType.commander,
-      components: [
+      cardGroups: [
         {
           name: 'Commander',
           amount: 1,
@@ -71,6 +72,6 @@ export class StorageDeckRepository implements DeckRepository {
   }
 
   private storedToDomain(storedDeck: StorageDeck): Deck {
-    return new Deck(storedDeck.name ?? 'Unnamed Deck')
+    return new Deck(storedDeck.name ?? 'Unnamed Deck', DeckType.commander, [])
   }
 }
