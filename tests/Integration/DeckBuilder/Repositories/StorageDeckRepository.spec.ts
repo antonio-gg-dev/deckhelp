@@ -2,6 +2,7 @@ import { StorageDeckRepository } from '@/DeckBuilder/Infrastructure/Repositories
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
 import { DeckType } from '@/DeckBuilder/Domain/Entities/DeckType'
+import { CardGroup } from '../../../../src/DeckBuilder/Domain/Entities/CardGroup'
 
 let repository: StorageDeckRepository
 let storage: Storage
@@ -17,7 +18,11 @@ describe('create', () => {
     storage.getItem = vi.fn().mockReturnValueOnce(null)
     storage.setItem = vi.fn()
 
-    repository.create(new Deck('Expected Deck', DeckType.brawl, []))
+    repository.create(
+      new Deck('Expected Deck', DeckType.brawl, [
+        new CardGroup('Creatures', 38, []),
+        new CardGroup('Lands', 22, [])])
+    )
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
     expect(storage.setItem).toHaveBeenCalledWith(
@@ -26,7 +31,18 @@ describe('create', () => {
         {
           name: 'Expected Deck',
           type: 'Brawl',
-          cardGroups: []
+          cardGroups: [
+            {
+              name: 'Creatures',
+              amount: 38,
+              cards: []
+            },
+            {
+              name: 'Lands',
+              amount: 22,
+              cards: []
+            }
+          ]
         }
       ])
     )
@@ -80,11 +96,23 @@ describe('list', () => {
       JSON.stringify([
         {
           name: 'Brawl Deck',
-          type: 'Brawl'
+          type: 'Brawl',
+          cardGroups: [
+            {
+              name: 'Spells',
+              amount: 60,
+              cards: []
+            }
+          ]
         },
         {
           name: 'Commander Deck',
-          type: 'Commander'
+          type: 'Commander',
+          cardGroups: [
+            {
+              test: 'Incomplete Card Group Data'
+            }
+          ]
         },
         {
           test: 'Incomplete Deck Data'
@@ -96,10 +124,9 @@ describe('list', () => {
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
     expect(decks).toStrictEqual([
-      new Deck('Brawl Deck', DeckType.brawl, []),
-      new Deck('Commander Deck', DeckType.commander, []),
-      new Deck('Unnamed Deck', DeckType.commander, [])
-    ])
+      new Deck('Brawl Deck', DeckType.brawl, [new CardGroup('Spells', 60, [])]),
+      new Deck('Commander Deck', DeckType.commander, [new CardGroup('Unnamed Group', 0, [])]),
+      new Deck('Unnamed Deck', DeckType.commander, [])])
   })
 })
 

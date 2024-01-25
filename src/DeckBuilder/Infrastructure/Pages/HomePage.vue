@@ -16,7 +16,10 @@ import type { CreateNewDeck } from '@/DeckBuilder/Application/UseCases/CreateNew
 
 export default defineComponent({
   components: { DeckList, CreateDeckForm },
-  inject: ['createNewDeck', 'listDecks'],
+  inject: [
+    'createNewDeck',
+    'listDecks'
+  ],
   data() {
     return {
       decks: [] as DeckResponse[]
