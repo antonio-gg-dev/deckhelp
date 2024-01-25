@@ -10,37 +10,7 @@ export class StorageDeckRepository implements DeckRepository {
   public create(newDeck: Deck) {
     const decks = this.getStoredDecks()
 
-    decks.push({
-      name: newDeck.name,
-      type: StorageDeckType.commander,
-      cardGroups: [
-        {
-          name: 'Commander',
-          amount: 1,
-          cards: []
-        },
-        {
-          name: 'Creatures',
-          amount: 29,
-          cards: []
-        },
-        {
-          name: 'Spells',
-          amount: 20,
-          cards: []
-        },
-        {
-          name: 'Ramp',
-          amount: 10,
-          cards: []
-        },
-        {
-          name: 'Lands',
-          amount: 40,
-          cards: []
-        }
-      ]
-    })
+    decks.push(this.domainDeckToStored(newDeck))
 
     this.storage.setItem('decks', JSON.stringify(decks))
   }
@@ -83,6 +53,23 @@ export class StorageDeckRepository implements DeckRepository {
         return DeckType.brawl
       default:
         return DeckType.commander
+    }
+  }
+
+  private domainDeckToStored(deck: Deck): StorageDeck {
+    return {
+      name: deck.name,
+      type: this.domainTypeToStored(deck.deckType),
+      cardGroups: []
+    }
+  }
+
+  private domainTypeToStored(type: DeckType): StorageDeckType {
+    switch (type) {
+      case DeckType.commander:
+        return StorageDeckType.commander
+      case DeckType.brawl:
+        return StorageDeckType.brawl
     }
   }
 }

@@ -12,6 +12,59 @@ beforeEach(() => {
   repository = new StorageDeckRepository(storage)
 })
 
+describe('create', () => {
+  it('should store given deck', () => {
+    storage.getItem = vi.fn().mockReturnValueOnce(null)
+    storage.setItem = vi.fn()
+
+    repository.create(new Deck('Expected Deck', DeckType.brawl, []))
+
+    expect(storage.getItem).toHaveBeenCalledWith('decks')
+    expect(storage.setItem).toHaveBeenCalledWith(
+      'decks',
+      JSON.stringify([
+        {
+          name: 'Expected Deck',
+          type: 'Brawl',
+          cardGroups: []
+        }
+      ])
+    )
+  })
+
+  it('should keep storing many decks', () => {
+    storage.getItem = vi.fn().mockReturnValueOnce(
+      JSON.stringify([
+        {
+          name: 'Already Stored Deck',
+          type: 'Brawl',
+          cardGroups: []
+        }
+      ])
+    )
+    storage.setItem = vi.fn()
+
+    repository.create(new Deck('New Stored Deck', DeckType.commander, []))
+
+    expect(storage.getItem).toHaveBeenCalledWith('decks')
+    expect(storage.setItem).toHaveBeenCalledWith(
+      'decks',
+      JSON.stringify([
+        {
+          name: 'Already Stored Deck',
+          type: 'Brawl',
+          cardGroups: []
+        },
+        {
+          name: 'New Stored Deck',
+          type: 'Commander',
+          cardGroups: []
+        }
+      ])
+    )
+  })
+})
+
 describe('list', () => {
   it('should return [] when state is empty', () => {
     storage.getItem = vi.fn().mockReturnValueOnce(null)
