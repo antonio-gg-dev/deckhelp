@@ -48,7 +48,7 @@ export class StorageDeckRepository implements DeckRepository {
   public list(): Deck[] {
     const decks = this.getStoredDecks()
 
-    return decks.map(this.storedDeckToDomain)
+    return decks.map((storedDeck) => this.storedDeckToDomain(storedDeck))
   }
 
   public getByIndex(index: number): Deck | null {
