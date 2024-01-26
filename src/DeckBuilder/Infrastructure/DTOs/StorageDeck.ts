@@ -1,8 +1,8 @@
-import { StorageDeckType } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeckType'
-import type { StorageCardGroup } from '@/DeckBuilder/Infrastructure/DTOs/StorageCardGroup'
+import { StorageFormat } from '@/DeckBuilder/Infrastructure/DTOs/StorageFormat'
+import type { StorageSection } from '@/DeckBuilder/Infrastructure/DTOs/StorageSection'
 
 export interface StorageDeck {
   name: string
-  type: StorageDeckType
-  cardGroups: StorageCardGroup[]
+  format: StorageFormat
+  sections: StorageSection[]
 }

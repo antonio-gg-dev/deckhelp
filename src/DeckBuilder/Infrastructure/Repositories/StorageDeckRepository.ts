@@ -1,10 +1,10 @@
 import type { DeckRepository } from '@/DeckBuilder/Domain/Repositories/DeckRepository'
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
 import type { StorageDeck } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
-import { DeckType } from '@/DeckBuilder/Domain/Entities/DeckType'
-import { StorageDeckType } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeckType'
-import { CardGroup } from '@/DeckBuilder/Domain/Entities/CardGroup'
-import type { StorageCardGroup } from '@/DeckBuilder/Infrastructure/DTOs/StorageCardGroup'
+import { Format } from '@/DeckBuilder/Domain/Entities/Format'
+import { StorageFormat } from '@/DeckBuilder/Infrastructure/DTOs/StorageFormat'
+import { Section } from '@/DeckBuilder/Domain/Entities/Section'
+import type { StorageSection } from '@/DeckBuilder/Infrastructure/DTOs/StorageSection'
 
 export class StorageDeckRepository implements DeckRepository {
   public constructor(private storage: Storage) {}
@@ -44,55 +44,55 @@ export class StorageDeckRepository implements DeckRepository {
   }
 
   private storedDeckToDomain(storedDeck: StorageDeck): Deck {
-    let storedCardGroups: StorageCardGroup[] = []
+    let storedCardGroups: StorageSection[] = []
 
-    if (Array.isArray(storedDeck.cardGroups)) {
-      storedCardGroups = storedDeck.cardGroups
+    if (Array.isArray(storedDeck.sections)) {
+      storedCardGroups = storedDeck.sections
     }
 
     return new Deck(
       storedDeck.name ?? 'Unnamed Deck',
-      this.storedTypeToDomain(storedDeck.type),
-      storedCardGroups.map((storedCardGroup) => this.storedCardGroupToDomain(storedCardGroup))
+      this.storedFormatToDomain(storedDeck.format),
+      storedCardGroups.map((storedCardGroup) => this.storedSectionToDomain(storedCardGroup))
     )
   }
 
-  private storedTypeToDomain(storedType: StorageDeckType | unknown): DeckType {
-    switch (storedType) {
-      case StorageDeckType.commander:
-        return DeckType.commander
-      case StorageDeckType.brawl:
-        return DeckType.brawl
+  private storedFormatToDomain(storedFormat: StorageFormat | unknown): Format {
+    switch (storedFormat) {
+      case StorageFormat.commander:
+        return Format.commander
+      case StorageFormat.brawl:
+        return Format.brawl
       default:
-        return DeckType.commander
+        return Format.commander
     }
   }
 
-  private storedCardGroupToDomain(storageCardGroup: StorageCardGroup): CardGroup {
-    return new CardGroup(storageCardGroup.name ?? 'Unnamed Group', storageCardGroup.amount ?? 0, [])
+  private storedSectionToDomain(storageCardGroup: StorageSection): Section {
+    return new Section(storageCardGroup.name ?? 'Unnamed Group', storageCardGroup.amount ?? 0, [])
   }
 
   private domainDeckToStored(deck: Deck): StorageDeck {
     return {
       name: deck.name,
-      type: this.domainTypeToStored(deck.deckType),
-      cardGroups: deck.cardGroups.map((cardGroup) => this.domainCardGroupToStored(cardGroup))
+      format: this.domainFormatToStored(deck.format),
+      sections: deck.sections.map((cardGroup) => this.domainSectionToStored(cardGroup))
     }
   }
 
-  private domainTypeToStored(type: DeckType): StorageDeckType {
-    switch (type) {
-      case DeckType.commander:
-        return StorageDeckType.commander
-      case DeckType.brawl:
-        return StorageDeckType.brawl
+  private domainFormatToStored(format: Format): StorageFormat {
+    switch (format) {
+      case Format.commander:
+        return StorageFormat.commander
+      case Format.brawl:
+        return StorageFormat.brawl
     }
   }
 
-  private domainCardGroupToStored(cardGroup: CardGroup): StorageCardGroup {
+  private domainSectionToStored(section: Section): StorageSection {
     return {
-      name: cardGroup.name,
-      amount: cardGroup.amount,
+      name: section.name,
+      amount: section.amount,
       cards: []
     }
   }

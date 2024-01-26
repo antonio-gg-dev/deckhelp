@@ -1,4 +1,4 @@
-export enum StorageDeckType {
+export enum Format {
   commander = 'Commander',
   brawl = 'Brawl'
 }

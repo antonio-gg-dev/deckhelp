@@ -1,8 +1,8 @@
 import { StorageDeckRepository } from '@/DeckBuilder/Infrastructure/Repositories/StorageDeckRepository'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
-import { DeckType } from '@/DeckBuilder/Domain/Entities/DeckType'
-import { CardGroup } from '../../../../src/DeckBuilder/Domain/Entities/CardGroup'
+import { Format } from '../../../../src/DeckBuilder/Domain/Entities/Format'
+import { Section } from '../../../../src/DeckBuilder/Domain/Entities/Section'
 
 let repository: StorageDeckRepository
 let storage: Storage
@@ -19,9 +19,9 @@ describe('create', () => {
     storage.setItem = vi.fn()
 
     repository.create(
-      new Deck('Expected Deck', DeckType.brawl, [
-        new CardGroup('Creatures', 38, []),
-        new CardGroup('Lands', 22, [])])
+      new Deck('Expected Deck', Format.brawl, [
+        new Section('Creatures', 38, []),
+        new Section('Lands', 22, [])])
     )
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
@@ -30,8 +30,8 @@ describe('create', () => {
       JSON.stringify([
         {
           name: 'Expected Deck',
-          type: 'Brawl',
-          cardGroups: [
+          format: 'Brawl',
+          sections: [
             {
               name: 'Creatures',
               amount: 38,
@@ -53,14 +53,14 @@ describe('create', () => {
       JSON.stringify([
         {
           name: 'Already Stored Deck',
-          type: 'Brawl',
-          cardGroups: []
+          format: 'Brawl',
+          sections: []
         }
       ])
     )
     storage.setItem = vi.fn()
 
-    repository.create(new Deck('New Stored Deck', DeckType.commander, []))
+    repository.create(new Deck('New Stored Deck', Format.commander, []))
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
     expect(storage.setItem).toHaveBeenCalledWith(
@@ -68,13 +68,13 @@ describe('create', () => {
       JSON.stringify([
         {
           name: 'Already Stored Deck',
-          type: 'Brawl',
-          cardGroups: []
+          format: 'Brawl',
+          sections: []
         },
         {
           name: 'New Stored Deck',
-          type: 'Commander',
-          cardGroups: []
+          format: 'Commander',
+          sections: []
         }
       ])
     )
@@ -96,8 +96,8 @@ describe('list', () => {
       JSON.stringify([
         {
           name: 'Brawl Deck',
-          type: 'Brawl',
-          cardGroups: [
+          format: 'Brawl',
+          sections: [
             {
               name: 'Spells',
               amount: 60,
@@ -107,8 +107,8 @@ describe('list', () => {
         },
         {
           name: 'Commander Deck',
-          type: 'Commander',
-          cardGroups: [
+          format: 'Commander',
+          sections: [
             {
               test: 'Incomplete Card Group Data'
             }
@@ -124,9 +124,9 @@ describe('list', () => {
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
     expect(decks).toStrictEqual([
-      new Deck('Brawl Deck', DeckType.brawl, [new CardGroup('Spells', 60, [])]),
-      new Deck('Commander Deck', DeckType.commander, [new CardGroup('Unnamed Group', 0, [])]),
-      new Deck('Unnamed Deck', DeckType.commander, [])])
+      new Deck('Brawl Deck', Format.brawl, [new Section('Spells', 60, [])]),
+      new Deck('Commander Deck', Format.commander, [new Section('Unnamed Group', 0, [])]),
+      new Deck('Unnamed Deck', Format.commander, [])])
   })
 })
 
@@ -154,7 +154,7 @@ describe('getByIndex', () => {
       JSON.stringify([
         {
           name: 'Expected Deck',
-          type: 'Brawl'
+          format: 'Brawl'
         }
       ])
     )
@@ -162,7 +162,7 @@ describe('getByIndex', () => {
     const deck = repository.getByIndex(0)
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
-    expect(deck).toEqual(new Deck('Expected Deck', DeckType.brawl, []))
+    expect(deck).toEqual(new Deck('Expected Deck', Format.brawl, []))
   })
 
   it('should return deck with index "1"', () => {
@@ -170,11 +170,11 @@ describe('getByIndex', () => {
       JSON.stringify([
         {
           name: 'Unexpected Deck',
-          type: 'Brawl'
+          format: 'Brawl'
         },
         {
           name: 'Expected Deck',
-          type: 'Commander'
+          format: 'Commander'
         }
       ])
     )
@@ -182,7 +182,7 @@ describe('getByIndex', () => {
     const deck = repository.getByIndex(1)
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
-    expect(deck).toEqual(new Deck('Expected Deck', DeckType.commander, []))
+    expect(deck).toEqual(new Deck('Expected Deck', Format.commander, []))
   })
 
   it('should autocomplete missing data from the deck', () => {
@@ -197,6 +197,6 @@ describe('getByIndex', () => {
     const deck = repository.getByIndex(0)
 
     expect(storage.getItem).toHaveBeenCalledWith('decks')
-    expect(deck).toEqual(new Deck('Unnamed Deck', DeckType.commander, []))
+    expect(deck).toEqual(new Deck('Unnamed Deck', Format.commander, []))
   })
 })

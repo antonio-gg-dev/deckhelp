@@ -1,10 +1,10 @@
-import type { DeckType } from '@/DeckBuilder/Domain/Entities/DeckType'
-import { CardGroup } from '@/DeckBuilder/Domain/Entities/CardGroup'
+import type { Format } from '@/DeckBuilder/Domain/Entities/Format'
+import { Section } from '@/DeckBuilder/Domain/Entities/Section'
 
 export class Deck {
   public constructor(
     public name: string,
-    public deckType: DeckType,
-    public cardGroups: CardGroup[]
+    public format: Format,
+    public sections: Section[]
   ) {}
 }
