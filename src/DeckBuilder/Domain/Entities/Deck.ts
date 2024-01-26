@@ -1,4 +1,4 @@
-import type { Format } from '@/DeckBuilder/Domain/Entities/Format'
+import type { Format } from '@/DeckBuilder/Domain/Enums/Format'
 import { Section } from '@/DeckBuilder/Domain/Entities/Section'
 import { DeckError } from '@/DeckBuilder/Domain/Errors/DeckError'
 

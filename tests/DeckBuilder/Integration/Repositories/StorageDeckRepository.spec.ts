@@ -1,7 +1,7 @@
 import { StorageDeckRepository } from '@/DeckBuilder/Infrastructure/Repositories/StorageDeckRepository'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
-import { Format } from '@/DeckBuilder/Domain/Entities/Format'
+import { Format } from '@/DeckBuilder/Domain/Enums/Format'
 import { Section } from '@/DeckBuilder/Domain/Entities/Section'
 
 let repository: StorageDeckRepository

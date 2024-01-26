@@ -1,8 +1,8 @@
 import type { DeckRepository } from '@/DeckBuilder/Domain/Repositories/DeckRepository'
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
 import type { StorageDeck } from '@/DeckBuilder/Infrastructure/DTOs/StorageDeck'
-import { Format } from '@/DeckBuilder/Domain/Entities/Format'
-import { StorageFormat } from '@/DeckBuilder/Infrastructure/DTOs/StorageFormat'
+import { Format } from '@/DeckBuilder/Domain/Enums/Format'
+import { StorageFormat } from '@/DeckBuilder/Infrastructure/Enums/StorageFormat'
 import { Section } from '@/DeckBuilder/Domain/Entities/Section'
 import type { StorageSection } from '@/DeckBuilder/Infrastructure/DTOs/StorageSection'
 

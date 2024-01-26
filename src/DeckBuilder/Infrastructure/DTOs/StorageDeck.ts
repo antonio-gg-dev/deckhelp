@@ -1,4 +1,4 @@
-import { StorageFormat } from '@/DeckBuilder/Infrastructure/DTOs/StorageFormat'
+import { StorageFormat } from '@/DeckBuilder/Infrastructure/Enums/StorageFormat'
 import type { StorageSection } from '@/DeckBuilder/Infrastructure/DTOs/StorageSection'
 
 export interface StorageDeck {

@@ -1,6 +1,6 @@
 import { Deck } from '@/DeckBuilder/Domain/Entities/Deck'
 import { describe, expect, it } from 'vitest'
-import { Format } from '@/DeckBuilder/Domain/Entities/Format'
+import { Format } from '@/DeckBuilder/Domain/Enums/Format'
 import { DeckError } from '@/DeckBuilder/Domain/Errors/DeckError'
 
 describe('name', () => {
