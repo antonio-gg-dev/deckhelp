@@ -9,7 +9,7 @@
       v-model="deckName"
     />
 
-    <button type="submit">Create</button>
+    <button type="submit">New</button>
   </form>
 </template>
 
