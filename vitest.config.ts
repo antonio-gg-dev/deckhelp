@@ -1,4 +1,4 @@
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
 import viteConfig from './vite.config'
 
@@ -13,6 +13,12 @@ export default mergeConfig(
       ],
       root: fileURLToPath(new URL('./', import.meta.url)),
       globals: true
+    },
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@@': fileURLToPath(new URL('./tests', import.meta.url))
+      }
     }
   })
 )

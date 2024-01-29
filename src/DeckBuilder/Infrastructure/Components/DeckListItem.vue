@@ -1,5 +1,8 @@
 <template>
-  <RouterLink :to="`/decks/${deck.index}`">
+  <RouterLink
+    :to="`/decks/${deck.index}`"
+    data-testid="link"
+  >
     {{ deck }}
   </RouterLink>
 </template>
