@@ -12,7 +12,14 @@ export default mergeConfig(
         'e2e/*'
       ],
       root: fileURLToPath(new URL('./', import.meta.url)),
-      globals: true
+      globals: true,
+      coverage: {
+        provider: 'istanbul',
+        reporter: [
+          'text',
+          'html'
+        ]
+      }
     },
     resolve: {
       alias: {
